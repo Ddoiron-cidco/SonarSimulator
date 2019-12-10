@@ -1,0 +1,8 @@
+Raspberry pi 3B+
+https://canada.newark.com/raspberry-pi/rpi3-modbp/sbc-arm-cortex-a53-1gb-sdram/dp/49AC7637
+Environ 50$ CAD
+
+RS422 / RS485 Shield for Raspberry Pi
+https://www.hwhardsoft.de/english/webshop/shields/#cc-m-product-11173736397
+Environ 60$ CAD
+
