@@ -1,14 +1,22 @@
-# SonarSimulator
-Simulateur de sonar NMEA 0183
+# README for nmeaSIMULATOR.py
+## Sonar simulator NMEA-0183
 
-Pour faire fonctionner : 
+*implementation of PyPi : nmeasim https://pypi.org/project/nmeasim/#description*
 
-sur machine linux : cat /dev/ttyUSB0 ## pour écouter le port usb  
-sur rpi  : python3 nmeaSIMULATOR.py 10 GGA  
-sinon python3 nmeaSIMULATOR.py -h ## pour afficher help section  
+### foncitonnalities :
+
+Generate nmea-0183 string of types  :  
+- Geospatial (GGA, GLL, RMC, VTG, ZDA) - simulated using a consistent location/velocity model, time using machine time (not NTP, unless the machine happens to be NTP synchronised).  
+- Satellites (GSA, GSV) - faked with random azimuth/elevation.
 
 
-### install requirements for nmea sim
+### HOW TO MAKE IT WORK: 
+
+On a linux machine : cat /dev/ttyUSB0    
+On rpi : python3 nmeaSIMULATOR.py 10 GGA    
+
+
+### install requirements for nmeaSim
 install_requires =
 
     pyserial
