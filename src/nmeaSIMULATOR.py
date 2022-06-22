@@ -10,7 +10,10 @@ from datetime import datetime
 from pprint import pprint
 from nmeasim.models import TZ_LOCAL
 from nmeasim.simulator import Simulator
+import serial
 
+
+ser = serial.Serial("/dev/ttyUSB0",baudrate=4800)
 
 outputTypeList = ['GGA', 'GLL', 'GSA', 'GSV', 'RMC', 'VTG', 'ZDA'] 
 outputType=[]
@@ -49,7 +52,8 @@ def run(arg_outputTimer, outputType):
         # Keep straight course for simulator - don't randomly change the heading
         sim.heading_variation = 0
     sim.generate(outputTimer, output=f)
-   
+    f.close()
+    
 
 
 def loar_arg():
