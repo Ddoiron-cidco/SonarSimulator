@@ -20,9 +20,9 @@ DURATION = 1
 def checkSum(data):
     sum=0
     for ch in data:
-        if ch != '$':	
+        if ch != '$':
             sum^=ord(ch)
-    return f'{data}*{sum:02X}\r\n'
+    return f'{data}*{sum:02X}'
 
 def help():
     # Display Help
@@ -50,7 +50,6 @@ if len(sys.argv) > 1:
     # Open simulator and output file
     simulator = Simulator()
     serialPort = open("/dev/ttyUSB0", "w")
-
     #Generate GGA
     # Can re-order or drop some
     simulator.gps.output = ('GGA', 'GLL', 'GSA', 'GSV', 'RMC', 'VTG', 'ZDA')
@@ -75,17 +74,22 @@ if len(sys.argv) > 1:
     simulator.gps.angle_dp = 1
     # Keep straight course for simulator - don't randomly change the heading
     simulator.heading_variation = 0
-    #simulator.generate(3, serialPort)
     while True :
         #Generate GPS
         simulator.generate(DURATION, serialPort)
-        #Generate DBT
-        depthMeters = 42.0 #TODO: generate from model
-        depthFeet = float(depthMeters*3.28084)
-        depthFathoms = float(depthMeters*0.546807)
-        DBTstring = f'$SDDBT,{round(depthFeet,1)},f,{round(depthMeters,1)},M,{round(depthFathoms,1)},F' 
-        dbt=checkSum(DBTstring) #.encode('utf-8') 
-        serialPort.write(dbt)
+        #Generate DPT
+        depthMeters = -1 - simulator.gps.lat - simulator.gps.lon
+        #depthMeters = -simulator.gps.geoid_sep - simulator.gps.altitude 
+        depthOffset = 1
+        maxDepthRange = 100
+        # depthMeters = 42.0 #TODO: generate from model
+        #depthFeet = float(depthMeters*3.28084)
+        #depthFathoms = float(depthMeters*0.546807)
+        DPTstring = f'$SDDPT,{round(depthMeters,1)},M,{round(depthOffset,1)},{maxDepthRange}' 
+        dpt=checkSum(DPTstring) #.encode('utf-8') 
+        serialPort.write(f'{dpt}\r\n')
+        #print('depth:')
+        # print(depthMeters)
     serialPort.close()
 
 else:
