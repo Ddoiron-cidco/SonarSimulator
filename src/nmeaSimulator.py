@@ -20,7 +20,8 @@ DURATION = 1
 def checkSum(data):
     sum=0
     for ch in data:
-        sum^=ord(ch)
+        if ch != '$':	
+            sum^=ord(ch)
     return f'{data}*{sum:02X}\r\n'
 
 def help():
@@ -82,7 +83,7 @@ if len(sys.argv) > 1:
         depthMeters = 42.0 #TODO: generate from model
         depthFeet = float(depthMeters*3.28084)
         depthFathoms = float(depthMeters*0.546807)
-        DBTstring = f'$SDDBT,{round(depthFeet,1)},f,{round(depthMeters,1)},M,{round(depthFathoms,1)},' 
+        DBTstring = f'$SDDBT,{round(depthFeet,1)},f,{round(depthMeters,1)},M,{round(depthFathoms,1)},F' 
         dbt=checkSum(DBTstring) #.encode('utf-8') 
         serialPort.write(dbt)
     serialPort.close()
