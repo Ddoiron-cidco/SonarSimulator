@@ -79,17 +79,13 @@ if len(sys.argv) > 1:
         simulator.generate(DURATION, serialPort)
         #Generate DPT
         depthMeters = -1 - simulator.gps.lat - simulator.gps.lon
-        #depthMeters = -simulator.gps.geoid_sep - simulator.gps.altitude 
         depthOffset = 1
         maxDepthRange = 100
-        # depthMeters = 42.0 #TODO: generate from model
         #depthFeet = float(depthMeters*3.28084)
         #depthFathoms = float(depthMeters*0.546807)
         DPTstring = f'$SDDPT,{round(depthMeters,1)},M,{round(depthOffset,1)},{maxDepthRange}' 
         dpt=checkSum(DPTstring) #.encode('utf-8') 
         serialPort.write(f'{dpt}\r\n')
-        #print('depth:')
-        # print(depthMeters)
     serialPort.close()
 
 else:
