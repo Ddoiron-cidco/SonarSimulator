@@ -13,7 +13,7 @@ Generate nmea-0183 string of types  :
 ### HOW TO MAKE IT WORK: 
     
 On a Raspberry pi : 
-First, setting the baud rate at 4800 : stty -F /dev/ttyUSB0 4800
+First, setting the baud rate at 4800 : stty -F /dev/ttyUSB0 4800  
 Then, in /SonarSimulator/src python3 nmeaSIMULATOR.py 1    
 
 
