@@ -28,6 +28,10 @@ def generateTSS1():
     return f':020010 0001F 0023 -0169'
 
 def generateDPT():
+    depthMeters = -1 - simulator.gps.lat - simulator.gps.lon
+    depthOffset = 1
+    maxDepthRange = 100
+    return f'$SDDPT,{round(depthMeters,1)},M,{round(depthOffset,1)},{maxDepthRange}' 
     
 
 def help():
@@ -86,10 +90,7 @@ if len(sys.argv) > 1:
         #Generate GPS
         simulator.generate(DURATION, serialPort)
         #Generate DPT
-        depthMeters = -1 - simulator.gps.lat - simulator.gps.lon
-        depthOffset = 1
-        maxDepthRange = 100
-        DPTstring = f'$SDDPT,{round(depthMeters,1)},M,{round(depthOffset,1)},{maxDepthRange}' 
+        DPTstring=generateDPT()
         dpt=checkSum(DPTstring)
         #Generate Tss1
         Tss1=generateTSS1()
