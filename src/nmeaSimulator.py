@@ -24,6 +24,16 @@ def checkSum(data):
             sum^=ord(ch)
     return f'{data}*{sum:02X}'
 
+def generateTSS1():
+    return f':020010 0001F 0023 -0169'
+
+def generateDPT():
+    depthMeters = -1 - simulator.gps.lat - simulator.gps.lon
+    depthOffset = 1
+    maxDepthRange = 100
+    return f'$SDDPT,{round(depthMeters,1)},M,{round(depthOffset,1)},{maxDepthRange}' 
+    
+
 def help():
     # Display Help
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
@@ -44,6 +54,8 @@ def help():
     print("To verify baudrate : stty -F /dev/ttyUSB0")
     print("To set baudrate : stty -F /dev/ttyUSB0 4800")
     print("BE SURE TO BE LAUNCHING THE PROGRAM ON THE Raspberry pi !")
+
+
 
 ##################### Main ######################
 if len(sys.argv) > 1:
@@ -78,14 +90,13 @@ if len(sys.argv) > 1:
         #Generate GPS
         simulator.generate(DURATION, serialPort)
         #Generate DPT
-        depthMeters = -1 - simulator.gps.lat - simulator.gps.lon
-        depthOffset = 1
-        maxDepthRange = 100
-        #depthFeet = float(depthMeters*3.28084)
-        #depthFathoms = float(depthMeters*0.546807)
-        DPTstring = f'$SDDPT,{round(depthMeters,1)},M,{round(depthOffset,1)},{maxDepthRange}' 
-        dpt=checkSum(DPTstring) #.encode('utf-8') 
+        DPTstring=generateDPT()
+        dpt=checkSum(DPTstring)
+        #Generate Tss1
+        Tss1=generateTSS1()
+        #Writing on the port
         serialPort.write(f'{dpt}\r\n')
+        serialPort.write(f'{Tss1}\r\n')
     serialPort.close()
 
 else:
