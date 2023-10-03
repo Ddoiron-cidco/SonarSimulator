@@ -7,6 +7,9 @@ Description=Launch NMEA Simulator on boot.
 [Service]
 Type=simple
 ExecStart=/home/ubuntu/SonarSimulator/Script/autolaunch.sh
+
+[Install]
+WantedBy=multi-user.target
 EOF3'
 
 sudo chmod 755 /etc/systemd/system/nmea.service
