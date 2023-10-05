@@ -14,7 +14,7 @@ class TestNMEAGenerator(unittest.TestCase):
 
     def test_checksum(self):
         sentence = "SDDPT,15.5,0.1,100"
-        expected_checksum = "7A"
+        expected_checksum = "$SDDPT,15.5,0.1,100*7A"
         self.assertEqual(checksum(sentence), expected_checksum)
 
     @patch('serial.Serial')
@@ -35,9 +35,9 @@ class TestNMEAGenerator(unittest.TestCase):
         # Vérifiez que la phrase NMEA a été correctement générée et envoyée
         expected_nmea_sentences = [
             "$SDDPT,10.0,0.1,100*7A",
-            "$SDDPT,20.0,0.1,100*79",
-            "$SDDPT,30.0,0.1,100*78",
-            "$SDDPT,40.0,0.1,100*7F"
+            "$SDDPT,11.0,0.1,100*7B",
+            "$SDDPT,12.0,0.1,100*7C",
+            "$SDDPT,13.0,0.1,100*7D"
         ]
         self.assertEqual(output.getvalue(), ''.join(expected_nmea_sentences))
 
