@@ -7,7 +7,14 @@ def generate_nmea_dpt(depth):
     # Génère une phrase NMEA DPT avec la profondeur spécifiée
     return checksum(f"$SDDPT,{depth:.1f},M,0.1,100")
 
-def checksum(sentence):
+def checkSum(data):
+    sum=0
+    for ch in data:
+        if ch != '$':
+            sum^=ord(ch)
+    return f'{data}*{sum:02X}'
+
+def checksum1(sentence):
     # Calcule le checksum NMEA
     checksum_value = 0
     for char in sentence:
