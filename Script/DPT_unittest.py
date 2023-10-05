@@ -9,12 +9,12 @@ class TestNMEAGenerator(unittest.TestCase):
 
     def test_generate_nmea_dpt(self):
         depth = 15.5
-        expected_output = "$SDDPT,15.5,M*6D"
+        expected_output = "$SDDPT,15.5,0.1,100*7A"
         self.assertEqual(generate_nmea_dpt(depth), expected_output)
 
     def test_checksum(self):
-        sentence = "$SDDPT,15.5,M"
-        expected_checksum = "6D"
+        sentence = "SDDPT,15.5,0.1,100"
+        expected_checksum = "7A"
         self.assertEqual(checksum(sentence), expected_checksum)
 
     @patch('serial.Serial')
@@ -34,10 +34,10 @@ class TestNMEAGenerator(unittest.TestCase):
         mock_serial.assert_called_once_with('test_port_serie', 9600, timeout=1)
         # Vérifiez que la phrase NMEA a été correctement générée et envoyée
         expected_nmea_sentences = [
-            "$SDDPT,10.0,M*49\n",
-            "$SDDPT,13.5,M*4E\n",
-            "$SDDPT,18.0,M*57\n",
-            "$SDDPT,23.0,M*66\n"
+            "$SDDPT,10.0,0.1,100*7A",
+            "$SDDPT,20.0,0.1,100*79",
+            "$SDDPT,30.0,0.1,100*78",
+            "$SDDPT,40.0,0.1,100*7F"
         ]
         self.assertEqual(output.getvalue(), ''.join(expected_nmea_sentences))
 
