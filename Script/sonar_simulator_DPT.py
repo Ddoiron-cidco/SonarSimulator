@@ -5,21 +5,14 @@ import time
 
 def generate_nmea_dpt(depth):
     # Génère une phrase NMEA DPT avec la profondeur spécifiée
-    return checksum(f"$SDDPT,{depth:.1f},M,0.1,100")
+    return checksum(f"SDDPT,{depth:.1f},0.1,100")
 
-def checkSum(data):
-    sum=0
-    for ch in data:
-        if ch != '$':
-            sum^=ord(ch)
-    return f'{data}*{sum:02X}'
-
-def checksum1(sentence):
+def checksum(sentence):
     # Calcule le checksum NMEA
     checksum_value = 0
     for char in sentence:
         checksum_value ^= ord(char)
-    return f'{sentence}*{hex(checksum_value)[2:].upper().zfill(2)}'
+    return f'${sentence}*{hex(checksum_value)[2:].upper().zfill(2)}'
 
 def main(serial_port, baud_rate):
     try:
