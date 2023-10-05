@@ -34,10 +34,10 @@ class TestNMEAGenerator(unittest.TestCase):
         mock_serial.assert_called_once_with('test_port_serie', 9600, timeout=1)
         # Vérifiez que la phrase NMEA a été correctement générée et envoyée
         expected_nmea_sentences = [
-            "$SDDPT,10.0,0.1,100*7A",
-            "$SDDPT,11.0,0.1,100*7B",
-            "$SDDPT,12.0,0.1,100*7C",
-            "$SDDPT,13.0,0.1,100*7D"
+            "$SDDPT,10.0,0.1,100*7A\r\n",
+            "$SDDPT,11.0,0.1,100*7B\r\n",
+            "$SDDPT,12.0,0.1,100*7C\r\n",
+            "$SDDPT,13.0,0.1,100*7D\r\n"
         ]
         self.assertEqual(output.getvalue(), ''.join(expected_nmea_sentences))
 
