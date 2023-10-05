@@ -12,7 +12,7 @@ def checksum(sentence):
     checksum_value = 0
     for char in sentence:
         checksum_value ^= ord(char)
-    return f'{sentence}*{hex(checksum_value)[2:].upper().zfill(2)}'
+    return f'{sentence}{hex(checksum_value)[2:].upper().zfill(2)}'
 
 def main(serial_port, baud_rate):
     try:
