@@ -5,7 +5,7 @@ import time
 
 def generate_nmea_dpt(depth):
     # Génère une phrase NMEA DPT avec la profondeur spécifiée
-    return checksum(f"$SDDPT,{depth:.1f},M,0.1,100")
+    return checksum(f"$SDDPT,{depth:.1f},M,0.1,100*")
 
 def checksum(sentence):
     # Calcule le checksum NMEA
