@@ -1,8 +1,7 @@
 Raspberry pi 3B+
-https://canada.newark.com/raspberry-pi/rpi3-modbp/sbc-arm-cortex-a53-1gb-sdram/dp/49AC7637
-Environ 50$ CAD
+https://www.waveshare.com/product/raspberry-pi/boards-kits/raspberry-pi-3/raspberry-pi-3-model-b-plus.htm
 
-RS422 / RS485 Shield for Raspberry Pi
-https://www.hwhardsoft.de/english/webshop/shields/#cc-m-product-11173736397
-Environ 60$ CAD
+FT232RL USB TO RS232/485/TTL Interface Converter, Industrial Isolation
+https://www.waveshare.com/usb-to-rs232-485-ttl.htm?sku=15817
+
 
