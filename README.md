@@ -8,7 +8,7 @@
 Generate nmea-0183 string of types  :  
 - Depth of water (SDDPT)
 
-### HOW TO MAKE IT WORK: 
+### HOW TO MAKE IT WORK AUTOMATICALLY: 
     
 On a Raspberry pi : 
 
@@ -44,5 +44,29 @@ to show the status of the service : sudo systemctl status nmea
 to start the service : sudo systemctl start nmea
 to stop the service : sudo systemctl stop nmea
 
+### HOW TO MAKE IT WORK MANUALLY: 
 
+On a Raspberry pi : 
 
+1. Install ubuntu server on as sdcard with the user ubuntu
+
+2. Connect the usb serial adapter on the Raspberry
+
+3. apply the power on the raspberry
+
+4. validate if the serial adapter is detected by the OS
+    ls /dev/ttyU*
+	  you should see ttyUSB0
+   
+5. clone the repository in /home/ubuntu
+
+6. Validate and modify the setting for the serial port and baudrate in the autolaunch.sh
+    nano /home/ubuntu/SonarSimulator/autolaunch.sh
+	  python /home/ubuntu/SonarSimulator/Script/sonar_simulator_DPT.py /dev/ttyUSB0 9600
+	  the 2 last argument are the serial port and the baudrate
+	  ex:
+	  python /home/ubuntu/SonarSimulator/Script/sonar_simulator_DPT.py /dev/ttyUSB1 9600
+	  python /home/ubuntu/SonarSimulator/Script/sonar_simulator_DPT.py /dev/ttyAMA0 115200
+	  
+7. Execute the script 
+	sudo ./home/ubuntu/SonarSimulator/autolaunch.sh
